@@ -169,111 +169,29 @@ local function setup_highlights()
 		["@text.title"] = { fg = colors.cyan, bold = true },
 		["@text.literal"] = { fg = colors.green },
 		["@text.uri"] = { fg = colors.blue, underline = true },
-		["@text.emphasis"] = { italic = true },
-		["@text.strong"] = { bold = true },
-		["@text.reference"] = { fg = colors.blue },
-		["@tag"] = { link = "Tag" },
-		["@tag.attribute"] = { fg = colors.yellow },
-		["@tag.delimiter"] = { fg = colors.fg },
-		["@lsp.type.class"] = { link = "@type" },
-		["@lsp.type.comment"] = { link = "@comment" },
-		["@lsp.type.decorator"] = { link = "@attribute" },
-		["@lsp.type.enum"] = { link = "@type" },
-		["@lsp.type.enumMember"] = { link = "@constant" },
-		["@lsp.type.function"] = { link = "@function" },
-		["@lsp.type.interface"] = { link = "@type" },
-		["@lsp.type.macro"] = { link = "@constant.macro" },
-		["@lsp.type.method"] = { link = "@method" },
-		["@lsp.type.namespace"] = { link = "@namespace" },
-		["@lsp.type.parameter"] = { link = "@parameter" },
-		["@lsp.type.property"] = { link = "@property" },
-		["@lsp.type.struct"] = { link = "@type" },
-		["@lsp.type.type"] = { link = "@type" },
-		["@lsp.type.typeParameter"] = { link = "@type.definition" },
-		["@lsp.type.variable"] = { link = "@variable" },
-		GitSignsAdd = { fg = colors.green },
-		GitSignsChange = { fg = colors.blue },
-		GitSignsDelete = { fg = colors.red },
-		TelescopeNormal = { fg = colors.fg, bg = colors.bg },
-		TelescopeBorder = { fg = colors.border, bg = colors.bg },
-		TelescopePromptBorder = { fg = colors.border, bg = colors.bg_highlight },
-		TelescopeResultsBorder = { fg = colors.border, bg = colors.bg },
-		TelescopePreviewBorder = { fg = colors.border, bg = colors.bg },
-		TelescopeSelectionCaret = { fg = colors.cyan },
-		TelescopeSelection = { fg = colors.fg, bg = colors.bg_selection },
-		TelescopeMatching = { fg = colors.yellow, bold = true },
-		NvimTreeNormal = { fg = colors.fg, bg = colors.bg },
-		NvimTreeRootFolder = { fg = colors.blue, bold = true },
-		NvimTreeFolderIcon = { fg = colors.green },
-		NvimTreeFileIcon = { fg = colors.blue },
-		NvimTreeSpecialFile = { fg = colors.cyan, underline = true },
-		NvimTreeIndentMarker = { fg = colors.border },
-		NvimTreeGitDirty = { fg = colors.orange },
-		NvimTreeGitStaged = { fg = colors.green },
-		NvimTreeGitNew = { fg = colors.green },
-		NvimTreeGitDeleted = { fg = colors.red },
-		NeogitBranch = { fg = colors.yellow },
-		NeogitRemote = { fg = colors.cyan },
-		NeogitHunkHeader = { fg = colors.fg, bg = colors.bg_highlight },
-		NeogitDiffAdd = { fg = colors.green },
-		NeogitDiffDelete = { fg = colors.red },
-		DashboardHeader = { fg = colors.cyan },
-		DashboardCenter = { fg = colors.yellow },
-		DashboardFooter = { fg = colors.comment, italic = true },
-		WhichKey = { fg = colors.cyan },
-		WhichKeyGroup = { fg = colors.blue },
-		WhichKeyDesc = { fg = colors.fg },
-		WhichKeySeparator = { fg = colors.comment },
-		BufferLineFill = { bg = colors.bg },
-		BufferLineBackground = { fg = colors.comment, bg = colors.bg_highlight },
-		BufferLineBufferSelected = { fg = colors.fg, bg = colors.bg },
-		BufferLineModified = { fg = colors.yellow, bg = colors.bg_highlight },
-		BufferLineModifiedSelected = { fg = colors.yellow, bg = colors.bg },
-		IndentBlanklineChar = { fg = colors.border },
-		IndentBlanklineContextChar = { fg = colors.comment },
+		["@text.todo"] = { fg = colors.yellow, bold = true },
+		["@text.todo.checked"] = { fg = colors.green },
+		["@text.todo.unchecked"] = { fg = colors.red },
+		["@text.diff.add"] = { fg = colors.green },
+		["@text.diff.remove"] = { fg = colors.red },
+		["@text.comment"] = { link = "Comment" },
 	}
 
-	for group, styles in pairs(highlights) do
-		vim.api.nvim_set_hl(0, group, styles)
+	for group, style in pairs(highlights) do
+		vim.api.nvim_set_hl(0, group, style)
 	end
 end
 
 function M.setup()
-	vim.cmd.hi("clear")
-	if vim.fn.exists("syntax_on") == 1 then
-		vim.cmd.syntax("reset")
-	end
-
+	-- Activate termguicolors
 	vim.o.termguicolors = true
-	vim.g.colors_name = "one-hunter-material"
+	vim.g.background = "dark"
 
-	-- Terminal colors
-	vim.g.terminal_color_0 = colors.bg
-	vim.g.terminal_color_1 = colors.red
-	vim.g.terminal_color_2 = colors.green
-	vim.g.terminal_color_3 = colors.yellow
-	vim.g.terminal_color_4 = colors.blue
-	vim.g.terminal_color_5 = colors.magenta
-	vim.g.terminal_color_6 = colors.cyan
-	vim.g.terminal_color_7 = colors.fg
-	vim.g.terminal_color_8 = colors.comment
-	vim.g.terminal_color_9 = colors.red
-	vim.g.terminal_color_10 = colors.green
-	vim.g.terminal_color_11 = colors.yellow
-	vim.g.terminal_color_12 = colors.blue
-	vim.g.terminal_color_13 = colors.magenta
-	vim.g.terminal_color_14 = colors.cyan
-	vim.g.terminal_color_15 = colors.fg
+	-- Clear all default highlights
+	vim.cmd("hi clear")
 
+	-- Set highlights
 	setup_highlights()
-end
-
-function M.load()
-	vim.opt.termguicolors = true
-	local highlights = setup_highlights()
-	for group, opts in pairs(highlights) do
-		vim.api.nvim_set_hl(0, group, opts)
-	end
 end
 
 return M
