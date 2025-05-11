@@ -36,12 +36,12 @@ local colors = {
 	none = "NONE",
 }
 
--- Define default options for plugin
+-- Default options
 local default_opts = {
 	transparent_background = false,
 }
 
--- Generate highlights
+-- Setup highlights
 local function setup_highlights()
 	local hl = {
 		Normal = { fg = colors.fg, bg = colors.bg },
@@ -134,31 +134,66 @@ local function setup_highlights()
 		Ignore = { fg = colors.comment },
 		Error = { fg = colors.error },
 		Todo = { fg = colors.yellow, bold = true },
+
+		["@comment"] = { link = "Comment" },
+		["@error"] = { link = "Error" },
+		["@none"] = { bg = colors.none, fg = colors.none },
+		["@preproc"] = { link = "PreProc" },
+		["@define"] = { link = "Macro" },
+		["@operator"] = { link = "Operator" },
+		["@punctuation.delimiter"] = { fg = colors.fg },
+		["@punctuation.bracket"] = { fg = colors.fg },
+		["@punctuation.special"] = { fg = colors.fg },
+		["@string"] = { link = "String" },
+		["@string.regex"] = { fg = colors.orange },
+		["@character"] = { link = "Character" },
+		["@boolean"] = { link = "Boolean" },
+		["@number"] = { link = "Number" },
+		["@float"] = { link = "Float" },
+		["@function"] = { link = "Function" },
+		["@function.builtin"] = { fg = colors.cyan },
+		["@function.call"] = { fg = colors.cyan },
+		["@method"] = { fg = colors.cyan },
+		["@method.call"] = { fg = colors.cyan },
+		["@constructor"] = { fg = colors.yellow },
+		["@parameter"] = { fg = colors.fg },
+		["@keyword"] = { link = "Keyword" },
+		["@keyword.function"] = { fg = colors.red },
+		["@keyword.operator"] = { fg = colors.blue },
+		["@keyword.return"] = { fg = colors.red },
+		["@conditional"] = { link = "Conditional" },
+		["@repeat"] = { link = "Repeat" },
+		["@label"] = { link = "Label" },
+		["@include"] = { link = "Include" },
+		["@exception"] = { link = "Exception" },
+		["@type"] = { link = "Type" },
+		["@type.builtin"] = { fg = colors.blue },
+		["@type.definition"] = { fg = colors.blue },
+		["@type.qualifier"] = { fg = colors.red },
+		["@storageclass"] = { link = "StorageClass" },
+		["@attribute"] = { fg = colors.yellow },
+		["@field"] = { fg = colors.fg },
 	}
 
+	-- Apply all highlights
 	for group, style in pairs(hl) do
-		vim.api.nvim_set_hl(0, group, style)
+		pcall(vim.api.nvim_set_hl, 0, group, style)
 	end
 end
 
 -- Setup function called by LazyVim
 function M.setup(opts)
 	opts = vim.tbl_deep_extend("force", default_opts, opts or {})
-	-- Activate true color support
 	vim.o.termguicolors = true
-	-- Clear existing highlights
 	vim.cmd("hi clear")
 
-	-- Apply transparent background if requested
 	if opts.transparent_background then
 		colors.bg = colors.none
 		colors.cursor_line = colors.none
 		colors.bg_highlight = colors.none
 	end
 
-	-- Generate and apply highlights
 	setup_highlights()
-	-- Set colorscheme name for LazyVim
 	vim.g.colors_name = "one-hunter-material"
 end
 
