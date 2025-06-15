@@ -1,5 +1,3 @@
--- lua/mi_colorscheme/init.lua
-
 -- MiColorscheme: One Hunter Material
 
 -- Carga tus opciones por defecto y la función para aplicar highlights
@@ -8,7 +6,7 @@ local default_opts = {
 	italic_comments = true,
 	bold_functions = true,
 }
-local highlight = require("mi_colorscheme.highlight")
+local highlight = require("one-hunter-material.highlight")
 
 -- Define la tabla principal del colorscheme
 local M = {}

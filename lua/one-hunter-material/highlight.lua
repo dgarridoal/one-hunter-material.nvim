@@ -1,7 +1,7 @@
 local M = {}
 
 -- Carga tus colores desde el nuevo archivo colors.lua
-local colors = require("mi_colorscheme.colors")
+local colors = require("one-hunter-material.colors")
 
 -- Función auxiliar para establecer highlights (simplifica la llamada)
 local function set_hl(group, opts)
