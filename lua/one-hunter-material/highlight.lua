@@ -5,7 +5,12 @@ local colors = require("one-hunter-material.colors")
 
 -- Función auxiliar para establecer highlights (simplifica la llamada)
 local function set_hl(group, opts)
-	vim.api.nvim_set_hl(0, group, opts)
+	vim.api.nvim_create_autocmd("ColorScheme", {
+		pattern = "*",
+		callback = function()
+			vim.api.nvim_set_hl(0, group, opts)
+		end,
+	})
 end
 
 -- Función auxiliar para enlazar highlights (más legible para links)
