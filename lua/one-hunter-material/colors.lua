@@ -1,4 +1,5 @@
-return {
+-- Color Palette (One Hunter Material - Complete)
+local M = {
 	-- Base colors
 	bg = "#1D2126",
 	fg = "#E3E1E1",
@@ -122,3 +123,5 @@ return {
 
 	none = "NONE",
 }
+
+return M
