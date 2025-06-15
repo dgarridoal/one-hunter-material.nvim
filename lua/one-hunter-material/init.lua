@@ -610,8 +610,8 @@ local function setup_highlights()
 	}
 
 	-- Apply all highlights
-	for group, style in pairs(hl) do
-		pcall(vim.api.nvim_set_hl, 0, group, style)
+	for group, target in pairs(hl) do
+		vim.api.nvim_set_hl(0, group, { hl = target })
 	end
 end
 
